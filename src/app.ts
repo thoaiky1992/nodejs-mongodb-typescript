@@ -2,7 +2,7 @@ import express , { Application } from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes';
-import Database from '../data/database';
+import Database from './config/database';
 
 class App {
   private app: Application

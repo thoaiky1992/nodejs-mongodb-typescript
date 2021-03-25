@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { model } from 'mongoose';
+import { UserDto } from '../dto/user/user-create.dto';
 
 class CrudController {
   private _model: any
@@ -8,11 +9,7 @@ class CrudController {
   }
   public index() {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const userDto = {
-        name: "thoaiky1992",
-        email: "thoaiky1992@gmail.com",
-        password: "123456"
-      }
+      const userDto: UserDto = req.body;
       const userCreated = await this._model.create(userDto);
       if(!userCreated) {
         return res.json({
