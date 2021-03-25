@@ -7,16 +7,16 @@ const validationRequest = (dtoClass: any) => {
       validate(output, { skipMissingProperties: true }).then(errors => {
           // errors is an array of validation errors
           if (errors.length > 0) {
-              console.log(errors);
-              let errorTexts = Array();
-              for (const errorItem of errors) {
-                  errorTexts = errorTexts.concat(errorItem.constraints);
-              }
-              res.status(400).send(errorTexts);
-              return;
+            console.log(errors);
+            let errorTexts = Array();
+            for (const errorItem of errors) {
+                errorTexts = errorTexts.concat(errorItem.constraints);
+            }
+            res.status(400).send(errorTexts);
+            return;
           } else {
-              res.locals.input = output;
-              next();
+            res.locals.input = output;
+            next();
           }
       });
   };
