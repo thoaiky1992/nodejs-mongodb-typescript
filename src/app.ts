@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes';
 import Database from './config/database';
+import { SockerIo } from './socket.io/socket.io';
 
 class App {
   private app: Application
@@ -11,7 +12,7 @@ class App {
     this.middleware();
     this.routes();
     this.connectDB();
-    this.listen();
+    this.connectSocketIo();
   }
   middleware() {
     this.app.use(morgan('dev'));
@@ -21,11 +22,15 @@ class App {
   connectDB() {
     new Database();
   }
+  connectSocketIo() {
+    SockerIo.middleware();
+    SockerIo.connect();
+  }
   routes() {
     this.app.use(indexRouter);
   }
-  listen() {
-    this.app.listen(this.PORT, () => {
+  async listen() {
+    await this.app.listen(this.PORT, () => {
       console.log(`server running on port ${this.PORT}`);
     })
   }
