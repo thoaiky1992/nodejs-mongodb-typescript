@@ -5,6 +5,6 @@ import validationRequest from '../middleware/validate-request';
 
 const userRouter: Router = Router();
 
-userRouter.get('/', validationRequest(UserDto), UserController.index())
+userRouter.post('/', validationRequest(UserDto), UserController.createOne())
 
 export default userRouter;

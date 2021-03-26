@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+const chalk = require('chalk');
 class Database {
   private URI = 'mongodb://mongo:27017/rest_full_api'
   private options = {
@@ -10,6 +10,7 @@ class Database {
     this.connect();
   }
   connect() {
+    mongoose.set('debug', true);
     mongoose.connect(this.URI, this.options);
   }
 }

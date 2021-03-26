@@ -1,26 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
-import { model } from 'mongoose';
-import { UserDto } from '../dto/user/user-create.dto';
 
 class CrudController {
-  private _model: any
-  constructor(model:any) {
-    this._model = model;
+  private _service: any
+  constructor(_service:any) {
+    this._service = _service;
   }
-  public index() {
+  public createOne() {
     return async (req: Request, res: Response, next: NextFunction) => {
-      const userDto: UserDto = req.body;
-      const userCreated = await this._model.create(userDto);
-      if(!userCreated) {
-        return res.json({
-          status: 500,
-          message: "errors"
-        })
-      }
-      res.json({
-        status: 200,
-        data: userCreated
-      })
+      const dto = req.body;
+      this._service.createOne(req, res, next, dto);
     }
   }
 }
